@@ -650,6 +650,7 @@ elif st.session_state.screen == "results":
     res_cols = st.columns(min(n, 2))
     for i in range(n):
         with res_cols[i % 2]:
+            st.write(st.session_state.player_picks)
             color = PLAYER_COLORS[i % len(PLAYER_COLORS)]
             picks = st.session_state.player_picks[i]
             items_html = ""
