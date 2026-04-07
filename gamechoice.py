@@ -15,7 +15,7 @@ st.markdown("""
 
 *, body, html { font-family: 'DM Sans', sans-serif; }
 .main { background: #0a0a0f; }
-.block-container { padding: 1.5rem 2rem 3rem; max-width: 1100px; }
+.block-container { padding: 4.5rem 2rem 3rem; max-width: 1100px; }
 
 h1, h2, h3 { font-family: 'Playfair Display', serif !important; }
 
