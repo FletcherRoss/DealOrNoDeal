@@ -306,6 +306,18 @@ GAMES = {
             "Company": ["Solo Night In", "Date Night", "Family Night", "Squad Goals", "Stranger Becomes Friend", "Book Club", "First Date", "Old Friends Reunion", "Rainy Day Buddy", "Roommates"],
         }
     },
+    "🎬 Story Time": {
+        "emoji": "🍿",
+        "description": "Make the best Story Possible and then Tell it!!",
+        "categories": {
+            "Main Character": ["Pikachu", "Chase", "Justin Jefferson", "Addy", "Luffy", "Meredith Grey", "Noobini-Pizzini", "Mario", "Spiderman", "Ruva"],
+            "Sidekick": ["Muffin", "A booger", "McSteamy", "Flounder", "Drake Maye", "Zay-Zay", "Eleven", "Night Agent", "Mew", "Chopper"],
+            "Setting": ["Bluey", "One Piece", "Grey's Anatomy", "Vermont", "Grandmas Dog Building", "Island", "Baldur's Gate", "Steal a Brainrot", "In Volcano", "Walmart"],
+            "Problem": ["Zombie Apocalypse", "Poop in Pants", "Cat in a Tree", "Battle to Save World", "Dropped Ice Cream", "Find the One PIece", "Defeat Lergendary Pokemon", "Find Sidekick", "Lost in Desert", "Stuck in Space"],
+            "Villian": ["Mayor Humdinger", "Doctor Yang", "Thanos", "Deshaun Watson", "Buggy the Clown", "Muffin", "Devil", "Midnight", "Raelynn's Fart Cloud", "Amari"],
+            "Twist": ["Sidekick is Bad Guy", "Just a Dungeon's and Dragon Game", "Was a Dream", "Crisis not Adverted", "You have to help", "Paw Patrol are helping bad Guys", "Hero ate a Devil Fruit", "Talk like Addy", "Have to pee every 5 Minutes", "No Twist"],
+        }
+    },
     "🍽️ Dream Dinner Party": {
         "emoji": "🥂",
         "description": "Host the most memorable dinner — menu, guests, ambiance, and surprises!",
