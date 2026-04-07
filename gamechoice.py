@@ -601,7 +601,7 @@ elif st.session_state.screen == "game":
                 stay()
                 st.rerun()
 
-with side_col:
+    with side_col:
     st.markdown('<div class="section-label">Player Holdings</div>', unsafe_allow_html=True)
     for i in range(n):
         picks = st.session_state.player_picks[i]
