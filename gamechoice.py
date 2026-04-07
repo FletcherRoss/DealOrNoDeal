@@ -602,8 +602,8 @@ elif st.session_state.screen == "game":
                 st.rerun()
 
     with side_col:
-    st.markdown('<div class="section-label">Player Holdings</div>', unsafe_allow_html=True)
-    for i in range(n):
+        st.markdown('<div class="section-label">Player Holdings</div>', unsafe_allow_html=True)
+        for i in range(n):
         picks = st.session_state.player_picks[i]
         color = PLAYER_COLORS[i % len(PLAYER_COLORS)]
         is_current = (i == turn_idx)
