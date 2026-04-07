@@ -602,29 +602,38 @@ elif st.session_state.screen == "game":
                 st.rerun()
 
     with side_col:
-    st.markdown('<div class="section-label">Player Holdings</div>', unsafe_allow_html=True)
-    for i in range(n):
-        picks = st.session_state.player_picks[i]
-        color = PLAYER_COLORS[i % len(PLAYER_COLORS)]
-        is_current = (i == turn_idx)
-        border = color if is_current else "#2a2540"
-        holdings_html = ""
-        for c in st.session_state.categories[:round_num]:
-            val = picks.get(c, "—")
-            cls = "current-pick" if c == cat and val != "—" else ""
-            holdings_html += f"<span class='player-holding {cls}'><em style='color:#5a5468;font-style:normal;font-size:0.68rem;'>{c}:</em> {val}</span>"
-        current_label = "<span style='color:#d4af37;font-size:0.7rem;margin-left:6px;'>← CURRENT</span>" if is_current else ""
-        empty_label = "<span style='color:#3a3050;font-size:0.8rem;'>Nothing yet</span>"
-        holdings_display = holdings_html if holdings_html else empty_label
-        st.markdown(f"""
-        <div class='player-card' style='border-color:{border};'>
-            <div class='player-card-name'>
-                <span style='color:{color};'>●</span> {names[i]}
-                {current_label}
+        st.markdown('<div class="section-label">Player Holdings</div>', unsafe_allow_html=True)
+        for i in range(n):
+            picks = st.session_state.player_picks[i]
+            color = PLAYER_COLORS[i % len(PLAYER_COLORS)]
+            bg = PLAYER_BG[i % len(PLAYER_BG)]
+            is_current = (i == turn_idx)
+            border = color if is_current else "#2a2540"
+
+            holdings_html = ""
+            for c in st.session_state.categories[:round_num]:
+                val = picks.get(c, "—")
+                cls = "current-pick" if c == cat and val != "—" else ""
+                holdings_html += f'<span class="player-holding {cls}"><em style="color:#5a5468;font-style:normal;font-size:0.68rem;">{c}:</em> {val}</span>'
+
+            st.markdown(f"""
+            <div class="player-card" style="border-color:{border};">
+                <div class="player-card-name">
+                    <span style="color:{color};">●</span> {names[i]}
+                    {'<span style="color:#d4af37;font-size:0.7rem;margin-left:6px;">← CURRENT</span>' if is_current else ''}
+                </div>
+                <div>{holdings_html if holdings_html else '<span style="color:#3a3050;font-size:0.8rem;">Nothing yet</span>'}</div>
             </div>
-            <div>{holdings_display}</div>
-        </div>
-        """, unsafe_allow_html=True)
+            """, unsafe_allow_html=True)
+
+        # Round progress
+        st.markdown('<div class="section-label" style="margin-top:1rem;">Round Progress</div>', unsafe_allow_html=True)
+        for i, c in enumerate(st.session_state.categories):
+            done = i < st.session_state.round_idx
+            active = i == st.session_state.round_idx
+            color_dot = "#d4af37" if active else ("#34d399" if done else "#2a2540")
+            label_color = "#f0e6c8" if active else ("#80c890" if done else "#3a3050")
+            st.markdown(f'<div style="font-size:0.8rem;color:{label_color};margin:3px 0;"><span style="color:{color_dot};">{"▶" if active else ("✓" if done else "○")}</span> {c}</div>', unsafe_allow_html=True)
 
 # ─────────────────────────────────────────────────────────────────────────────
 # SCREEN: RESULTS
