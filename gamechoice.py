@@ -286,12 +286,12 @@ GAMES = {
         "emoji": "🏈",
         "description": "Draft your fantasy squad — pick positions, players, and your game plan!",
         "categories": {
-            "QB": ["Patrick Mahomes", "Josh Allen", "Lamar Jackson", "Joe Burrow", "Jalen Hurts", "Dak Prescott", "Justin Herbert", "Tua Tagovailoa", "Jordan Love", "Brock Purdy"],
-            "RB": ["Christian McCaffrey", "Derrick Henry", "Saquon Barkley", "Josh Jacobs", "Bijan Robinson", "Jonathan Taylor", "De'Von Achane", "Breece Hall", "Jahmyr Gibbs", "Tony Pollard"],
-            "WR": ["Ja'Marr Chase", "Justin Jefferson", "CeeDee Lamb", "Tyreek Hill", "Davante Adams", "Stefon Diggs", "Amon-Ra St. Brown", "Puka Nacua", "Garrett Wilson", "DK Metcalf"],
-            "TE": ["Travis Kelce", "Sam LaPorta", "Mark Andrews", "TJ Hockenson", "Dallas Goedert", "George Kittle", "Trey McBride", "Cole Kmet", "Jake Ferguson", "Evan Engram"],
-            "Defense": ["San Francisco 49ers", "Baltimore Ravens", "Dallas Cowboys", "Pittsburgh Steelers", "New England Patriots", "Denver Broncos", "Buffalo Bills", "Cleveland Browns", "Kansas City Chiefs", "Philadelphia Eagles"],
-            "Kicker": ["Justin Tucker", "Evan McPherson", "Tyler Bass", "Jake Elliott", "Harrison Butker", "Brandon Aubrey", "Jason Myers", "Matt Gay", "Cairo Santos", "Greg Zuerlein"],
+            "QB": ["Drake Maye", "Bo Nix", "Cam Ward", "Patrick Mahomes", "Josh Allen", "Lamar Jackson", "Joe Burrow", "Jalen Hurts", "Dak Prescott", "Justin Herbert", "Tua Tagovailoa", "Jordan Love", "Brock Purdy"],
+            "RB": ["Christian McCaffrey", "Derrick Henry", "Saquon Barkley", "Josh Jacobs", "Bijan Robinson", "Jonathan Taylor", "De'Von Achane", "Breece Hall", "Jahmyr Gibbs", "Tony Pollard", "Chubba Hubbard", "Chase Brown", "Aaron Jones"],
+            "WR": ["Ja'Marr Chase", "Justin Jefferson", "CeeDee Lamb", "Tyreek Hill", "Davante Adams", "Stefon Diggs", "Amon-Ra St. Brown", "Puka Nacua", "Garrett Wilson", "DK Metcalf", "Zay Flowers", "Emeka Egbuka"],
+            "TE": ["Travis Kelce", "Sam LaPorta", "Mark Andrews", "TJ Hockenson", "Dallas Goedert", "George Kittle", "Trey McBride", "Cole Kmet", "Jake Ferguson", "Evan Engram", "Tucker Kraft", "Theo Johnson"],
+            "Defense": ["New York Giants", "San Francisco 49ers", "Baltimore Ravens", "Dallas Cowboys", "Pittsburgh Steelers", "New England Patriots", "Denver Broncos", "Buffalo Bills", "Cleveland Browns", "Kansas City Chiefs", "Philadelphia Eagles"],
+            "WR2": ["Devonta Smith", "Rashod Bateman", "Jordan Addison", "Xavier Worthy", "Luther Burden", "Quentin Johston", "Eric Ayomanor", "Keyshon Boutte", "Matthew Golden", "Khalil Shakir", "Chris Godwin", "Xavier Legette", "Jaylen Waddle", "Travis Hunter"],
         }
     },
     "🎬 Movie Marathon": {
