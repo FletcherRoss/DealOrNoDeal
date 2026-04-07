@@ -620,7 +620,7 @@ elif st.session_state.screen == "game":
             <div class='player-card' style='border-color:{border};'>
                 <div class='player-card-name'>
                     <span style='color:{color};'>●</span> {names[i]}
-                    {'<span style='color:#d4af37;font-size:0.7rem;margin-left:6px;'>← CURRENT</span>' if is_current else ''}
+                    {"<span style='color:#d4af37;font-size:0.7rem;margin-left:6px;'>← CURRENT</span>" if is_current else ''}
                 </div>
                 <div>{holdings_html if holdings_html else '<span style="color:#3a3050;font-size:0.8rem;">Nothing yet</span>'}</div>
             </div>
