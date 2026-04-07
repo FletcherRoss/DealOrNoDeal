@@ -317,19 +317,7 @@ GAMES = {
             "Villian": ["Mayor Humdinger", "Doctor Yang", "Thanos", "Deshaun Watson", "Buggy the Clown", "Muffin", "Devil", "Midnight", "Raelynn's Fart Cloud", "Amari"],
             "Twist": ["Sidekick is Bad Guy", "Just a Dungeon's and Dragon Game", "Was a Dream", "Crisis not Adverted", "You have to help", "Paw Patrol are helping bad Guys", "Hero ate a Devil Fruit", "Talk like Addy", "Have to pee every 5 Minutes", "No Twist"],
         }
-    },
-    "🍽️ Dream Dinner Party": {
-        "emoji": "🥂",
-        "description": "Host the most memorable dinner — menu, guests, ambiance, and surprises!",
-        "categories": {
-            "Starter": ["Burrata & Tomato", "French Onion Soup", "Shrimp Cocktail", "Bruschetta", "Oysters", "Caprese Salad", "Lobster Bisque", "Charcuterie Board", "Stuffed Mushrooms", "Caesar Salad"],
-            "Main Course": ["Wagyu Filet", "Lobster Thermidor", "Lamb Rack", "Truffle Pasta", "Sea Bass", "Duck Confit", "Beef Wellington", "Paella", "Stuffed Chicken", "Osso Buco"],
-            "Dessert": ["Crème Brûlée", "Chocolate Lava Cake", "Tiramisu", "Cheesecake", "Pavlova", "Macarons", "Banana Foster", "Tarte Tatin", "Panna Cotta", "Ice Cream Bar"],
-            "Wine": ["Bordeaux Red", "Champagne", "Burgundy White", "Rosé", "Barolo", "Pinot Noir", "Sauvignon Blanc", "Prosecco", "Chianti", "Riesling"],
-            "Ambiance": ["Candlelit", "Garden Terrace", "Modern Loft", "Rustic Farmhouse", "Rooftop at Sunset", "Beach Bonfire", "Private Club", "Art Gallery", "Wine Cellar", "Penthouse"],
-            "Guest": ["Celebrity Chef", "Childhood Best Friend", "Famous Author", "Travel Buddy", "Your Hero", "Mystery Guest", "Long Lost Friend", "Mentor", "Soulmate", "Comedian"],
-        }
-    },
+    },    
 }
 
 PLAYER_COLORS = ["#d4af37", "#c084fc", "#34d399", "#f87171", "#60a5fa"]
