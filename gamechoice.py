@@ -590,8 +590,7 @@ elif st.session_state.screen == "game":
                         st.rerun()
         if phase == "swap":
             st.markdown("<br>", unsafe_allow_html=True)
-            remaining =
-
+            remaining = [c for c in range(1, 7) if c not in st.session_state.opened_cases]
         # Round progress
         st.markdown('<div class="section-label" style="margin-top:1rem;">Round Progress</div>', unsafe_allow_html=True)
         for i, c in enumerate(st.session_state.categories):
