@@ -639,9 +639,9 @@ elif st.session_state.screen == "game":
 # SCREEN: RESULTS
 # ─────────────────────────────────────────────────────────────────────────────
 elif st.session_state.screen == "results":
-    st.markdown('<div class="game-title">🏆 Final Results</div>', unsafe_allow_html=True)
-    st.markdown(f'<div class="game-subtitle">{st.session_state.selected_game}</div>', unsafe_allow_html=True)
-    st.markdown('<hr class="gold-divider">', unsafe_allow_html=True)
+    st.title("🏆 Final Results")
+    st.subheader(st.session_state.selected_game)
+    st.divider()
 
     names = st.session_state.player_names
     cats = st.session_state.categories
@@ -650,27 +650,13 @@ elif st.session_state.screen == "results":
     res_cols = st.columns(min(n, 2))
     for i in range(n):
         with res_cols[i % 2]:
-            st.write(st.session_state.player_picks)
-            color = PLAYER_COLORS[i % len(PLAYER_COLORS)]
+            st.subheader(f"🎯 {names[i]}")
             picks = st.session_state.player_picks[i]
-            items_html = ""
             for cat in cats:
                 val = picks.get(cat, "—")
-                items_html += f"""
-                <div class="reveal-item">
-                    <span class="reveal-cat">{cat}</span>
-                    <span style="color:#3a3050;">│</span>
-                    <span class="reveal-value">{val}</span>
-                </div>"""
-            st.markdown(f"""
-            <div class="reveal-card" style="border-color:{color}40;">
-                <div class="reveal-player"><span style="color:{color};">●</span> {names[i]}</div>
-                {items_html}
-            </div>""", unsafe_allow_html=True)
+                st.write(f"**{cat}:** {val}")
+            st.divider()
 
-    st.markdown('<hr class="gold-divider">', unsafe_allow_html=True)
-    col_a, col_b = st.columns([1, 5])
-    with col_a:
-        if st.button("🎲 Play Again"):
-            reset_game()
-            st.rerun()
+    if st.button("🎲 Play Again"):
+        reset_game()
+        st.rerun()
