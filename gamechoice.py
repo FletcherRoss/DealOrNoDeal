@@ -604,12 +604,12 @@ elif st.session_state.screen == "game":
     with side_col:
         st.markdown('<div class="section-label">Player Holdings</div>', unsafe_allow_html=True)
         for i in range(n):
-        picks = st.session_state.player_picks[i]
-        color = PLAYER_COLORS[i % len(PLAYER_COLORS)]
-        is_current = (i == turn_idx)
-        border = color if is_current else "#2a2540"
+            picks = st.session_state.player_picks[i]
+            color = PLAYER_COLORS[i % len(PLAYER_COLORS)]
+            is_current = (i == turn_idx)
+            border = color if is_current else "#2a2540"
 
-        holdings_html = ""
+            holdings_html = ""
         for c in st.session_state.categories[:round_num]:
             val = picks.get(c, "—")
             cls = "current-pick" if c == cat and val != "—" else ""
