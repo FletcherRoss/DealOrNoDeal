@@ -601,33 +601,21 @@ elif st.session_state.screen == "game":
                 stay()
                 st.rerun()
 
-    with side_col:
-        st.markdown('<div class="section-label">Player Holdings</div>', unsafe_allow_html=True)
-        for i in range(n):
-            picks = st.session_state.player_picks[i]
-            color = PLAYER_COLORS[i % len(PLAYER_COLORS)]
-            is_current = (i == turn_idx)
-            border = color if is_current else "#2a2540"
-
-            holdings_html = ""
-        for c in st.session_state.categories[:round_num]:
+with side_col:
+    st.markdown('<div class="section-label">Player Holdings</div>', unsafe_allow_html=True)
+    for i in range(n):
+        picks = st.session_state.player_picks[i]
+        color = PLAYER_COLORS[i % len(PLAYER_COLORS)]
+        is_current = (i == turn_idx)
+        border = color if is_current else "#2a2540"
+        holdings_html = ""
+        for c in st.session_state.categories[:round_num]:      # ← indented inside for i
             val = picks.get(c, "—")
             cls = "current-pick" if c == cat and val != "—" else ""
             holdings_html += f"<span class='player-holding {cls}'><em style='color:#5a5468;font-style:normal;font-size:0.68rem;'>{c}:</em> {val}</span>"
-
-        current_label = "<span style='color:#d4af37;font-size:0.7rem;margin-left:6px;'>← CURRENT</span>" if is_current else ""
-        empty_label = "<span style='color:#3a3050;font-size:0.8rem;'>Nothing yet</span>"
+        current_label = "<span style='color:#d4af37;font-size:0.7rem;margin-left:6px;'>← CURRENT</span>" if is_current else ""  # ← indented inside for i
+        empty_label = "<span style='color:#3a3050;font-size:0.8rem;'>Nothing yet</span>"                                         # ← indented inside for i
         holdings_display = holdings_html if holdings_html else empty_label
-
-        st.markdown(f"""
-        <div class='player-card' style='border-color:{border};'>
-            <div class='player-card-name'>
-                <span style='color:{color};'>●</span> {names[i]}
-                {current_label}
-            </div>
-            <div>{holdings_display}</div>
-        </div>
-        """, unsafe_allow_html=True)
 
         # Round progress
         st.markdown('<div class="section-label" style="margin-top:1rem;">Round Progress</div>', unsafe_allow_html=True)
