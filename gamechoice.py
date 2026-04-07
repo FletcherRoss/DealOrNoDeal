@@ -560,7 +560,6 @@ elif st.session_state.screen == "game":
     main_col, side_col = st.columns([3, 2])
 
     with main_col:
-        # Current player indicator
         color = PLAYER_COLORS[turn_idx % len(PLAYER_COLORS)]
         st.markdown(f"""
         <div style="margin-bottom:1rem;">
@@ -571,8 +570,6 @@ elif st.session_state.screen == "game":
             </div>
         </div>
         """, unsafe_allow_html=True)
-
-        # Briefcases
         st.markdown('<div class="section-label">Briefcases</div>', unsafe_allow_html=True)
         case_cols = st.columns(6)
         for case_num in range(1, 7):
@@ -591,51 +588,9 @@ elif st.session_state.screen == "game":
                         else:
                             swap_case(case_num)
                         st.rerun()
-
-        # Stay button (swap phase only)
         if phase == "swap":
             st.markdown("<br>", unsafe_allow_html=True)
-            remaining = [c for c in range(1, 7) if c not in st.session_state.opened_cases]
-            st.markdown(f'<div class="swap-box">Remaining unopened cases: {" ".join([f"#{c}" for c in remaining])}<br>Pick one to swap your current pick, or stay with what you have.</div>', unsafe_allow_html=True)
-            if st.button("✅  Stay with my pick"):
-                stay()
-                st.rerun()
-
-    with side_col:
-    st.markdown('<div class="section-label">Player Holdings</div>', unsafe_allow_html=True)
-    for i in range(n):
-        picks = st.session_state.player_picks[i]
-        color = PLAYER_COLORS[i % len(PLAYER_COLORS)]
-        bg = PLAYER_BG[i % len(PLAYER_BG)]
-        is_current = (i == turn_idx)
-        border = color if is_current else "#2a2540"
-
-        holdings_html = ""
-        for c in st.session_state.categories[:round_num]:
-            val = picks.get(c, "—")
-            cls = "current-pick" if c == cat and val != "—" else ""
-            holdings_html += f'<span class="player-holding {cls}"><em style="color:#5a5468;font-style:normal;font-size:0.68rem;">{c}:</em> {val}</span>'
-
-        # Pull ALL conditionals out before the f-string
-        if is_current:
-            current_label = "<span style='color:#d4af37;font-size:0.7rem;margin-left:6px;'>← CURRENT</span>"
-        else:
-            current_label = "<span></span>"
-
-        if holdings_html:
-            holdings_display = holdings_html
-        else:
-            holdings_display = "<span style='color:#3a3050;font-size:0.8rem;'>Nothing yet</span>"
-
-        st.markdown(f"""
-        <div class='player-card' style='border-color:{border};'>
-            <div class='player-card-name'>
-                <span style='color:{color};'>●</span> {names[i]}
-                {current_label}
-            </div>
-            <div>{holdings_display}</div>
-        </div>
-        """, unsafe_allow_html=True)
+            remaining =
 
         # Round progress
         st.markdown('<div class="section-label" style="margin-top:1rem;">Round Progress</div>', unsafe_allow_html=True)
