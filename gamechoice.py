@@ -258,16 +258,16 @@ h1, h2, h3 { font-family: 'Playfair Display', serif !important; }
 # GAME DATA
 # ─────────────────────────────────────────────────────────────────────────────
 GAMES = {
-    "🍕 Ultimate Party Night": {
+    "Pick your Pokemon Team": {
         "emoji": "🎉",
-        "description": "Plan the perfect party — pick your food, drinks, music, and more!",
+        "description": "Create the best Pokemon team to battle the Elite Four",
         "categories": {
-            "Food": ["Pizza", "Tacos", "Burgers", "Sushi", "BBQ", "Pasta", "Wings", "Ramen", "Nachos", "Charcuterie"],
-            "Drink": ["Craft Beer", "Cocktails", "Wine", "Seltzers", "Mocktails", "Margaritas", "Mimosas", "Punch Bowl", "Whiskey Sour", "Espresso Martini"],
-            "Music": ["Hip-Hop", "80s Pop", "Country", "EDM", "R&B", "Latin", "Rock", "Jazz", "Indie", "Top 40"],
-            "Activity": ["Karaoke", "Board Games", "Dance Off", "Trivia", "Cornhole", "Movie Marathon", "Poker", "Escape Room Kit", "Paint Night", "Jackbox Games"],
-            "Venue": ["Backyard", "Rooftop", "Beach", "Living Room", "Rented Hall", "Park", "Lake House", "Bowling Alley", "Restaurant Buyout", "Boat"],
-            "Theme": ["Tropical", "Decades Party", "Black & White", "Costume", "Casino Night", "Sports Theme", "Glow Party", "Masquerade", "Luau", "Ugly Sweater"],
+            "Starter": ["Pikachu", "Charmander", "Squirtle", "Bulbasaur", "Litten", "Grookey", "Scorbunny", "Sobble", "Spiragatto", "Fuecoco","Mudkip","Treecko","Chimchar","Piplup","Quaxly","Eevee"],
+            "First Catch": ["Pidgey", "Ratatta", "Mankey", "Shinx", "Weedle", "Caterpie", "Rookidee", "Spearow","Oddish", "Geodude", "Wooloo","Tepig","Zubat"],
+            "Ol' Reliable": ["Lapras", "Machamp", "Golem", "Aggron", "Houndoom", "Tauros", "Alakazam", "Wailord", "Arcanine", "Magneton"],
+            "Wilcard": ["Gyrados", "Gengar", "TinkaTon", "Crobat", "Dragonite", "Haxorus", "Goodra", "Cyclizar", "Wigglytuff", "Thievul"],
+            "Legendary": ["Mewtwo", "Rayquaza", "Mew", "Giratina", "Zapdos", "Articuno", "Entei", "Lugia", "Groudon", "Kyogre"],
+            "Ace": ["Lucario", "Gardevoir", "Gallade", "Garchomp", "Metagross", "Sylveon", "Umbreon", "Greninja", "Lycanroc", "Urshfu"],
         }
     },
     "🌍 Dream Vacation": {
