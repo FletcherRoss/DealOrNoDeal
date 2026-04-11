@@ -394,6 +394,7 @@ def deal_briefcases():
     st.session_state.swap_done = []
     st.session_state.turn_idx = 0
     st.session_state.phase = "pick"
+    
 
 def current_category():
     return st.session_state.categories[st.session_state.round_idx]
