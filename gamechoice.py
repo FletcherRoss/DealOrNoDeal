@@ -672,7 +672,7 @@ elif st.session_state.screen == "results":
         st.caption("1 = Best, higher number = worse. Each rank can only be used once.")
         st.divider()
 
-        # Show all players' picks for the voter to review
+        # Show all players picks for the voter to review
         for i in range(n):
             picks = st.session_state.player_picks[i]
             with st.expander(f"📋 {names[i]}'s team", expanded=True):
@@ -685,28 +685,23 @@ elif st.session_state.screen == "results":
         st.divider()
         st.markdown(f"**{names[voter_idx]}, assign a rank to each team:**")
 
-        # Rank inputs — one per player (can't rank yourself)
+        # Rank inputs — one per player including yourself
         vote_cols = st.columns(n)
         ranks = {}
-        valid = True
         for i in range(n):
             with vote_cols[i]:
-                if i == voter_idx:
-                    st.markdown(f"**{names[i]}**")
-                    st.caption("(your team)")
-                    ranks[i] = None  # can't vote for yourself
-                else:
-                    ranks[i] = st.selectbox(
-                        f"{names[i]}",
-                        options=list(range(1, n)),
-                        key=f"vote_{voter_idx}_{i}"
-                    )
+                label = f"{names[i]} ⭐ (your team)" if i == voter_idx else names[i]
+                ranks[i] = st.selectbox(
+                    label,
+                    options=list(range(1, n + 1)),
+                    key=f"vote_{voter_idx}_{i}"
+                )
 
         # Check for duplicate ranks
-        given_ranks = [v for v in ranks.values() if v is not None]
-        if len(given_ranks) != len(set(given_ranks)):
+        given_ranks = [v for v in ranks.values()]
+        valid = len(given_ranks) == len(set(given_ranks))
+        if not valid:
             st.warning("⚠️ Each rank must be unique! You have duplicates.")
-            valid = False
 
         if st.button(f"✅ Submit {names[voter_idx]}'s Vote", disabled=not valid):
             st.session_state.votes[voter_idx] = ranks
@@ -729,19 +724,17 @@ elif st.session_state.screen == "results":
         votes = st.session_state.votes
 
         # Tally scores — lower is better (rank 1 = best)
-        # Players can't vote for themselves so we fill in their own score
-        # as the average of what they gave others
         scores = {}
         for i in range(n):
             total = 0
             count = 0
             for voter_idx, voter_ranks in votes.items():
-                if voter_idx != i and voter_ranks.get(i) is not None:
+                if voter_ranks.get(i) is not None:
                     total += voter_ranks[i]
                     count += 1
             scores[i] = total / count if count > 0 else 999
 
-        # Sort players by score ascending (lower rank = better)
+        # Sort players by score ascending (lower = better)
         ranked_players = sorted(range(n), key=lambda i: scores[i])
 
         medals = ["🥇", "🥈", "🥉", "4️⃣"]
