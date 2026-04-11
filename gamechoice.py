@@ -355,7 +355,8 @@ init_state()
 def reset_game():
     keys = ["screen","selected_game","num_players","player_names","categories",
             "category_pools","round_idx","turn_idx","phase","player_picks",
-            "briefcase_contents","opened_cases","swap_done","message"]
+            "briefcase_contents","opened_cases","swap_done","message",
+            "voting_screen","votes","voter_idx","voting_done"]  # ← add these 4
     for k in keys:
         if k in st.session_state:
             del st.session_state[k]
@@ -636,35 +637,119 @@ elif st.session_state.screen == "game":
 # SCREEN: RESULTS
 # ─────────────────────────────────────────────────────────────────────────────
 elif st.session_state.screen == "results":
-    st.markdown('<div class="game-title">🏆 Final Results</div>', unsafe_allow_html=True)
-    st.markdown(f'<div class="game-subtitle">{st.session_state.selected_game}</div>', unsafe_allow_html=True)
-    st.markdown('<hr class="gold-divider">', unsafe_allow_html=True)
 
-    names = st.session_state.player_names
-    cats = st.session_state.categories
-    n = st.session_state.num_players
+    # ── VOTING PHASE ──────────────────────────────────────────────────
+    if not st.session_state.voting_done:
 
-    res_cols = st.columns(min(n, 2))
-    for i in range(n):
-        with res_cols[i % 2]:
-            color = PLAYER_COLORS[i % len(PLAYER_COLORS)]
+        st.title("🏆 Time to Vote!")
+        names = st.session_state.player_names
+        cats = st.session_state.categories
+        n = st.session_state.num_players
+        voter_idx = st.session_state.voter_idx
+
+        st.subheader(f"🗳️ {names[voter_idx]} — rank all the teams!")
+        st.caption("1 = Best, higher number = worse. Each rank can only be used once.")
+        st.divider()
+
+        # Show all players' picks for the voter to review
+        for i in range(n):
             picks = st.session_state.player_picks[i]
-            border_color = f"{color}40"
+            with st.expander(f"📋 {names[i]}'s team", expanded=True):
+                cols = st.columns(len(cats))
+                for j, cat in enumerate(cats):
+                    with cols[j]:
+                        st.markdown(f"**{cat}**")
+                        st.write(picks.get(cat, "—"))
 
-            items_html = ""
-            for cat in cats:
-                val = picks.get(cat, "—")
-                items_html += f"<div class='reveal-item'><span class='reveal-cat'>{cat}</span><span style='color:#3a3050;'>│</span><span class='reveal-value'>{val}</span></div>"
+        st.divider()
+        st.markdown(f"**{names[voter_idx]}, assign a rank to each team:**")
 
-            st.markdown(f"""
-            <div class="reveal-card" style="border-color:{border_color};">
-                <div class="reveal-player"><span style="color:{color};">●</span> {names[i]}</div>
-                {items_html}
-            </div>""", unsafe_allow_html=True)
+        # Rank inputs — one per player (can't rank yourself)
+        vote_cols = st.columns(n)
+        ranks = {}
+        valid = True
+        for i in range(n):
+            with vote_cols[i]:
+                if i == voter_idx:
+                    st.markdown(f"**{names[i]}**")
+                    st.caption("(your team)")
+                    ranks[i] = None  # can't vote for yourself
+                else:
+                    ranks[i] = st.selectbox(
+                        f"{names[i]}",
+                        options=list(range(1, n)),
+                        key=f"vote_{voter_idx}_{i}"
+                    )
 
-    st.markdown('<hr class="gold-divider">', unsafe_allow_html=True)
-    col_a, col_b = st.columns([1, 5])
-    with col_a:
+        # Check for duplicate ranks
+        given_ranks = [v for v in ranks.values() if v is not None]
+        if len(given_ranks) != len(set(given_ranks)):
+            st.warning("⚠️ Each rank must be unique! You have duplicates.")
+            valid = False
+
+        if st.button(f"✅ Submit {names[voter_idx]}'s Vote", disabled=not valid):
+            st.session_state.votes[voter_idx] = ranks
+            if voter_idx + 1 < n:
+                st.session_state.voter_idx += 1
+                st.rerun()
+            else:
+                st.session_state.voting_done = True
+                st.rerun()
+
+    # ── FINAL RESULTS ─────────────────────────────────────────────────
+    else:
+        st.title("🏆 Final Results")
+        st.subheader(st.session_state.selected_game)
+        st.divider()
+
+        names = st.session_state.player_names
+        cats = st.session_state.categories
+        n = st.session_state.num_players
+        votes = st.session_state.votes
+
+        # Tally scores — lower is better (rank 1 = best)
+        # Players can't vote for themselves so we fill in their own score
+        # as the average of what they gave others
+        scores = {}
+        for i in range(n):
+            total = 0
+            count = 0
+            for voter_idx, voter_ranks in votes.items():
+                if voter_idx != i and voter_ranks.get(i) is not None:
+                    total += voter_ranks[i]
+                    count += 1
+            scores[i] = total / count if count > 0 else 999
+
+        # Sort players by score ascending (lower rank = better)
+        ranked_players = sorted(range(n), key=lambda i: scores[i])
+
+        medals = ["🥇", "🥈", "🥉", "4️⃣"]
+
+        st.subheader("📊 Final Rankings")
+        for pos, i in enumerate(ranked_players):
+            picks = st.session_state.player_picks[i]
+            with st.container():
+                st.markdown(f"### {medals[pos]} {names[i]}  —  Avg Score: {scores[i]:.2f}")
+                col_list = st.columns(len(cats))
+                for j, cat in enumerate(cats):
+                    with col_list[j]:
+                        st.markdown(f"**{cat}**")
+                        st.write(picks.get(cat, "—"))
+                st.divider()
+
+        # Show voting breakdown
+        with st.expander("🗳️ See full voting breakdown"):
+            vote_data = {}
+            for voter_idx, voter_ranks in votes.items():
+                vote_data[f"{names[voter_idx]} voted"] = {
+                    names[i]: (voter_ranks.get(i) if voter_ranks.get(i) is not None else "—")
+                    for i in range(n)
+                }
+            import pandas as pd
+            df = pd.DataFrame(vote_data).T
+            st.dataframe(df, use_container_width=True)
+
+        st.divider()
         if st.button("🎲 Play Again"):
             reset_game()
             st.rerun()
