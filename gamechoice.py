@@ -392,8 +392,12 @@ def deal_briefcases():
     st.session_state.briefcase_contents = contents
     st.session_state.opened_cases = []
     st.session_state.swap_done = []
-    st.session_state.turn_idx = 0
     st.session_state.phase = "pick"
+
+    # Snake order — rotate starting player each round
+    round_idx = st.session_state.round_idx
+    n = st.session_state.num_players
+    st.session_state.turn_idx = round_idx % n
     
 
 def current_category():
