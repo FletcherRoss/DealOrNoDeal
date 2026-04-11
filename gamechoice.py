@@ -328,20 +328,24 @@ PLAYER_BG = ["#2a2010", "#2a1040", "#0a2a20", "#2a1010", "#0a1a2a"]
 # ─────────────────────────────────────────────────────────────────────────────
 def init_state():
     defaults = {
-        "screen": "setup",          # setup | game | results
+        "screen": "setup",
         "selected_game": None,
         "num_players": 2,
         "player_names": [],
-        "categories": [],           # ordered list of category names
-        "category_pools": {},       # category -> remaining options
-        "round_idx": 0,             # 0–5 (which category)
-        "turn_idx": 0,              # which player's turn within a round
-        "phase": "pick",            # pick | swap
-        "player_picks": {},         # {player_idx: {category: value}}
-        "briefcase_contents": {},   # {1-6: value} for current round
-        "opened_cases": [],         # which cases opened this round
-        "swap_done": [],            # players who acted this swap phase
+        "categories": [],
+        "category_pools": {},
+        "round_idx": 0,
+        "turn_idx": 0,
+        "phase": "pick",
+        "player_picks": {},
+        "briefcase_contents": {},
+        "opened_cases": [],
+        "swap_done": [],
         "message": "",
+        "voting_screen": False,       # ← ADD
+        "votes": {},                  # ← ADD
+        "voter_idx": 0,               # ← ADD
+        "voting_done": False,         # ← ADD
     }
     for k, v in defaults.items():
         if k not in st.session_state:
