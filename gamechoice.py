@@ -416,20 +416,35 @@ def pick_case(case_num):
     st.session_state.opened_cases.append(case_num)
     st.session_state.message = f"✨ {st.session_state.player_names[idx]} picked **{value}**!"
 
-    # advance to next player or transition to swap phase
+    # Build round order from whoever started this round
     n = st.session_state.num_players
-    if st.session_state.turn_idx + 1 < n:
-        st.session_state.turn_idx += 1
-    else:
-        # all players picked → move to swap phase if unopened cases remain
+    round_start = st.session_state.round_idx % n
+    round_order = [(round_start + i) % n for i in range(n)]
+
+    # Find next player in order who hasn't picked yet
+    picked_so_far = list(st.session_state.opened_cases)
+    players_picked = [
+        (round_start + i) % n
+        for i in range(len(st.session_state.opened_cases))
+    ]
+
+    next_idx = None
+    for candidate in round_order:
+        if candidate not in players_picked:
+            next_idx = candidate
+            break
+
+    if next_idx is None:
+        # All players have picked — move to swap phase
         remaining = [c for c in range(1, 7) if c not in st.session_state.opened_cases]
         if remaining:
             st.session_state.phase = "swap"
-            st.session_state.turn_idx = 0
+            st.session_state.turn_idx = round_start  # swap starts with same player who went first
             st.session_state.swap_done = []
         else:
             advance_round()
-
+    else:
+        st.session_state.turn_idx = next_idx
 def swap_case(case_num):
     idx = st.session_state.turn_idx
     cat = current_category()
@@ -451,15 +466,17 @@ def advance_swap_turn():
     n = st.session_state.num_players
     remaining_cases = [c for c in range(1, 7) if c not in st.session_state.opened_cases]
 
-    # find next player who hasn't acted yet
+    # Build the full round order starting from whoever started this round
+    round_start = st.session_state.round_idx % n
+    round_order = [(round_start + i) % n for i in range(n)]
+
+    # Find the next player in round order who hasn't acted yet
     next_idx = None
-    for i in range(1, n + 1):
-        candidate = (idx + i) % n
+    for candidate in round_order:
         if candidate not in st.session_state.swap_done:
             next_idx = candidate
             break
 
-    # end swap phase if: no more cases, or everyone has acted
     if not remaining_cases or next_idx is None:
         advance_round()
     else:
